@@ -22,7 +22,6 @@
     {$MODE objfpc}
   {$ENDIF FPC_DELPHI_MODE}
 
-  {$ASMMODE INTEL}
   {$MODESWITCH AdvancedRecords}
   {$MODESWITCH NestedProcVars}
   {$MODESWITCH NESTEDCOMMENTS}
@@ -95,7 +94,7 @@
   {$R-}
   {$I-}
   {$S-}
-  {$OPTIMIZATION OFF}
+  {$OPTIMIZATION ON}
 {$ELSE FPC} { IF DELPHI }
   {$DEFINE Delphi}
 
@@ -166,6 +165,10 @@
   // {$DEFINE SMALL_RASTER_FONT_Build_In}
   // {$DEFINE LARGE_RASTER_FONT_Build_In}
 
+  {$IF Defined(Android) or Defined(IOS)}
+    {$DEFINE SMALL_RASTER_FONT_Build_In}
+  {$IFEND}
+
   // ZDB_BACKUP is automatically made and replica caching is enabled.
   // usage ZDB_BACKUP so slows the open of large size ZDB file, after time, but does is high performance.
   // {$DEFINE ZDB_BACKUP}
@@ -196,7 +199,7 @@
     {$UNDEF INLINE_ASM}
     {$O-} { close optimization }
     {$R-} { range check }
-    {$I-} { Input output checking }
+    {$I+} { Input output checking }
     {$D+} { debug information }
   {$ENDIF}
 
@@ -251,6 +254,17 @@
   // JPEG support can output debug info
   {$UNDEF JPEG_Debug}
 {$ENDIF DEBUG}
+
+{$IFDEF Parallel}
+  // TMemoryRaster Parallel switch.
+  {$UNDEF MemoryRaster_Parallel}
+  // TRasterVertex Parallel switch.
+  {$UNDEF Vertex_Parallel}
+  // TMorphomatics Parallel switch.
+  {$DEFINE Morphomatics_Parallel}
+  // TMorphologyBinaryzation Parallel switch.
+  {$DEFINE MorphologyBinaryzation_Parallel}
+{$ENDIF Parallel}
 
 {$HINTS OFF}
 {$C+} { Assertions }

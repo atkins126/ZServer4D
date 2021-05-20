@@ -251,25 +251,17 @@ ZServer4D是系统化的生产工艺地基，它并不像VCL那样傻瓜，可�
 
 ## 最后更新日志
 
-**全面支持Radstudio10.4.2**
+- 规范了双通道释放机制：必须先释放个别的RecvTunnel/SendTunnel，然后再去释放双通道框架
+- 更新：修复CoreClasses库中OrderStruct中destroy没有override导致内存泄露的问题
+- 更新：修复RunHPC_Stream这类方法中destroy没有override导致内存泄露的问题
+- 更新：修正部分ZDB1.0体系中的笼统命名
+- 更新：修正部分ZDB1.0中cache的普适性
+- 更新：datastore service支持体系中的加解密机制
+- 更新：datastore service支持体系可以自动化解码数据库stream
+- 重大机制更新：新增支持p2pVM支持连接克隆机制，以后有空我会补充该机制demo
+- 重大机制更新：新增支持服务器间自动化数据转发桥接器机制，以后有空我会补充该机制demo
 
-- 修复p2pVM主循环问题
-- 内核新增OrderStrtuct以支持ThreadPos
-- 全面支持10.4.2
 
-**小改动**
-
-- 修复在P2PVM触发ConnectionDone事件中使用阻塞方式通讯等不到反馈的问题，感谢qq274384409
-
-**未改动ZS的主线框架,对原有服务器程序无影响,如果手上的项目正在使用ZS，建议使用本次更新**
-
-- 新增支持自动化的文件断点续传，包括上传，下载，注意：自动化断点支持只能适用于双通道服务框架
-- 优化了文件MD5效验码问题：服务器在获取MD5效验码时，如果使用hdd会出现卡io的情况，现在是一次性的，系统会自动cache文件md5，不再会卡IO
-- 新增了一个开源项目，以文件传输为主 [NetFileService](https://github.com/PassByYou888/NetFileService)
-- 优化automatedP2PVM框架，更加全自动化
-- 优化custom protocol支持部分，已在商业项目成功对接 c++/c/java/oc/swift/py 这些项目涵盖物联网、移动端、macos桌面端
-- 按商业项目等级优化了crosssocket后台接口，目标是绝不让它出错，哪怕百万分之一的出错几率
-- 近期ZS结合Z-AI的应用刚经历过几家创业公司和上市产品洗礼，ZS表现稳定
 
 [更多更新日志](https://github.com/PassByYou888/ZServer4D/update.md)
 
