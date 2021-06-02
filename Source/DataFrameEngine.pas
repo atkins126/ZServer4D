@@ -38,6 +38,7 @@ uses SysUtils, CoreClasses, Types,
 type
   TDataFrameEngine = class;
   TDFE = TDataFrameEngine;
+  TDF = TDataFrameEngine;
   TDataFrame = TDataFrameEngine;
 
   TDataFrameBase = class(TCoreClassObject)
@@ -699,7 +700,7 @@ type
     property List: TCoreClassListForObj read FDataList;
   end;
 
-  TDataWriter = class(TCoreClassPersistent)
+  TDataWriter = class(TCoreClassObject)
   protected
     FEngine: TDataFrameEngine;
     FStream: TCoreClassStream;
@@ -757,7 +758,7 @@ type
     procedure write(const Buf_; Count_: Int64);    { virtual; }
   end;
 
-  TDataReader = class(TCoreClassPersistent)
+  TDataReader = class(TCoreClassObject)
   protected
     FEngine: TDataFrameEngine;
   public
@@ -4870,7 +4871,7 @@ begin
   if FStream <> nil then
     begin
       M := TMemoryStream64.Create;
-      FEngine.EncodeTo(M);
+      FEngine.FastEncodeTo(M);
       Len := M.Size;
 
       // write version flag
