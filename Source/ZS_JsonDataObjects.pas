@@ -50,6 +50,11 @@ SOFTWARE.
 
 unit ZS_JsonDataObjects;
 
+{$IFDEF FPC}
+interface
+implementation
+end.
+{$ELSE FPC}
 {$IFDEF VER200}
   // Delphi 2009's ErrorInsight parser uses the CompilerVersion's memory address instead of 20.0, failing all the
   // IF CompilerVersion compiler directives
@@ -694,8 +699,11 @@ type
     // Short names
     property S[Index: Integer]: string read GetString write SetString;
     property I[Index: Integer]: Integer read GetInt write SetInt;
+    property I32[Index: Integer]: Integer read GetInt write SetInt;
     property L[Index: Integer]: Int64 read GetLong write SetLong;
+    property I64[Index: Integer]: Int64 read GetLong write SetLong;
     property U[Index: Integer]: UInt64 read GetULong write SetULong;
+    property U64[Index: Integer]: UInt64 read GetULong write SetULong;
     property F[Index: Integer]: Double read GetFloat write SetFloat;
     property D[Index: Integer]: TDateTime read GetDateTime write SetDateTime;
     property DUtc[Index: Integer]: TDateTime read GetUtcDateTime write SetUtcDateTime;
@@ -8354,4 +8362,5 @@ initialization
   JSONFormatSettings.DecimalSeparator := '.';
 
 end.
+{$ENDIF FPC}
 
